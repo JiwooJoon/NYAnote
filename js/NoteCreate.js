@@ -13,61 +13,78 @@ function getMemoArray() {
     return memoArray;
 }
 
-function createMemo(event) {
+function addlocalstage(key, memoObj) {
     let memoArray = getMemoArray()
-    let kindMemo = event.target.textContent
-    alert(kindMemo)
-
-    let currentData = new Date()
-    let key = "memo" + currentData.getTime()
-    let memoObj = {
-        "kind" : kindMemo
-    }
-
     localStorage.setItem(key, JSON.stringify(memoObj))
-
+    
     memoArray.push(key)
     localStorage.setItem("memoArray", JSON.stringify(memoArray));
 }
 
 function addMemotoDOM(key, memoObj){
     let memo = document.createElement("textarea");
+
     memo.setAttribute("spellcheck", "false")
 
     let span = document.createElement("div")
     span.setAttribute("class", "memos")
     span.setAttribute("id","text")
     span.setAttribute("draggable","flase")
-    span.setAttribute("name", key)
+    span.setAttribute("value", key)
+
+    if (memoObj.x > 0){
+        span.innerHTML = `
+        <div class="memohead">
+            <textarea id="mtitle" spellcheck="flase"></textarea>
+            <button></button>
+        </div>
+        <div class=memomain>
+            <textarea id="mform" spellcheck="flase" ></textarea>
+        </div>
+            <div class="memobottom" draggable="false">
+                <button id="memoBold" value="1"></button>
+                <button id="memoBig"></button>
+                <button id="memoSmall"></button>
+            <div class="dragzone">
+        </div>
+            <div class="sizezone" draggable="false">
+            </div>
+        </div>
+    `
+    }
+
     span.innerHTML = `
-    <div class=memohead>
+    <div class="memohead">
         <textarea id="mtitle" spellcheck="flase"></textarea>
-        <button></button>
+        <button>X</button>
     </div>
     <div class=memomain>
         <textarea id="mform" spellcheck="flase" ></textarea>
     </div>
-    <div class=memobottom draggable="false">
-        <button id="memoBold" value="1"></button>
-        <button id="memoBig"></button>
-        <button id="memoSmall"></button>
+    <div class="memobottom" draggable="false">
+        <button id="memoBold" value="1">B</button>
+        <button id="memoBig">+</button>
+        <button id="memoSmall">-</button>
         <div class="dragzone">
+        drag
         </div>
         <div class="sizezone" draggable="false">
+        size
         </div>
     </div>
     `
-    //span.appendChild(memo)
     
     const main = document.querySelector('body');
     main.appendChild(span)
+    $(span).offset({left: memoObj.x})
+    $(span).offset({top: memoObj.y})
 }
 function addMemotoDOMimage(key, memoObj, file){
     let span = document.createElement("div")
     span.setAttribute("class", "memos")
     span.setAttribute("id","image")
     span.setAttribute("draggable","flase")
-    span.setAttribute("name", key)
+    span.setAttribute("value", key)
 
     console.log(file)
     let url_ = URL.createObjectURL(file);
@@ -76,14 +93,12 @@ function addMemotoDOMimage(key, memoObj, file){
     span.innerHTML = `
     <div class=memohead>
         <textarea id="mtitle" spellcheck="flase"></textarea>
-        <button></button>
+        <button>X</button>
     </div>
     <div class=memomain>
         <img src=${url_}>
     </div>
     `
-
-    //span.appendChild(memo)
 
     $(span).css("width", "30%")
     $(span).css("height", "30%")
@@ -97,7 +112,7 @@ function addMemotoDOMsound(key, memoObj, file){
     span.setAttribute("class", "memos")
     span.setAttribute("id","sound")
     span.setAttribute("draggable","flase")
-    span.setAttribute("name", key)
+    span.setAttribute("value", key)
 
     console.log(file)
     let url_ = URL.createObjectURL(file);
@@ -106,7 +121,7 @@ function addMemotoDOMsound(key, memoObj, file){
     span.innerHTML = `
     <div class=memohead>
         <textarea id="mtitle" spellcheck="flase"></textarea>
-        <button></button>
+        <button>X</button>
     </div>
     <div class=memomain>
         <audio src=${url_} controls>
@@ -122,7 +137,7 @@ function addMemotoDOMvideo(key, memoObj, file){
     span.setAttribute("class", "memos")
     span.setAttribute("id","video")
     span.setAttribute("draggable","flase")
-    span.setAttribute("name", key)
+    span.setAttribute("value", key)
 
     console.log(file)
     let url_ = URL.createObjectURL(file);
@@ -131,7 +146,7 @@ function addMemotoDOMvideo(key, memoObj, file){
     span.innerHTML = `
     <div class=memohead>
         <textarea id="mtitle" spellcheck="flase"></textarea>
-        <button></button>
+        <button>X</button>
     </div>
     <div class=memomain>
         <video controls preload="auto">
@@ -149,7 +164,7 @@ function addMemotoDOMyoutube(key, link){
     span.setAttribute("class", "memos")
     span.setAttribute("id","youtube")
     span.setAttribute("draggable","flase")
-    span.setAttribute("name", key)
+    span.setAttribute("value", key)
 
     console.log(link)
     let url_ = link;
@@ -158,12 +173,20 @@ function addMemotoDOMyoutube(key, link){
     span.innerHTML = `
     <div class=memohead>
         <textarea id="mtitle" spellcheck="flase"></textarea>
-        <button></button>
+        <button>X</button>
     </div>
     <div class=memomain>
-    <iframe width="560" height="315"
-    src="${url_}" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+    <iframe width="100%" height="100%"
+    src="${url_}" controls=1; frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
     </iframe>
+    </div>
+    <div class=memobottom draggable="false">
+        <div class="dragzone">
+        drag
+        </div>
+        <div class="sizezone">
+        size
+        </div>
     </div>
     `
     
@@ -174,9 +197,8 @@ function addMemotoDOMyoutube(key, link){
 function removeMemoDOM(key) {
     let memo = document.getElementByName(key)
     memo.parentNode.removeChild(memo)
+    localStorage.removeItem("key")
 }
-
-
 
 function init() {
     let btnText = document.querySelector('#btnAddText')
@@ -185,23 +207,32 @@ function init() {
     let btnVideo = document.querySelector('#btnAddVideo')
     let btnYou = document.querySelector('#btnYouTube')
 
-    btnText.addEventListener('click', function(event) {
-        let memoArray = getMemoArray()
-        let kindMemo = event.target.textContent
-    
+    // 로컬스토리지 사용흔적 나중에 db로 바꿀것
+    // let memoArray = getMemoArray()
+    // for (let i =0; i<memoArray.length;i++) {
+    //     let key = memoArray[i]
+    //     let value = JSON.parse(localStorage[key])
+    //     addMemotoDOM(key, value);
+    // }
+
+    btnText.addEventListener('click', function(e) {
         let currentData = new Date()
         let key = "memo" + currentData.getTime()
+
         let memoObj = {
-            "kind" : kindMemo
+            "kind" : "text",
+            "title" : " ",
+            "form" : " ",
+            "x" : 0,
+            "y" : 0,
+            "Nheight" : 200,
+            "NWidth" : 200,
+            "bold" : 200,
+            "mysize" : 15
         }
-    
-        localStorage.setItem(key, JSON.stringify(memoObj))
-    
-        memoArray.push(key)
-        localStorage.setItem("memoArray", JSON.stringify(memoArray));
-    
-        if (kindMemo="text"){ addMemotoDOM(key, memoObj); }
-        else if(kindMemo="image") { addMemotoDOMimage(key, memoObj); }
+
+        addlocalstage(key, memoObj)
+        addMemotoDOM(key, memoObj);
     })
 
     btnImage.addEventListener('change', function(e){
@@ -298,9 +329,9 @@ function init() {
         let key = $('#modalYou').css('name')
         $('modalYou').css('name', '')
 
-        let link = $('#youlink').val();
+        let link = $('#youLink').val();
 
-        $('#youlink').val("");
+        $('#youLink').val("");
         $('#modalYou').css("visibility","hidden");
         addMemotoDOMyoutube(key,link)
      })
@@ -317,9 +348,9 @@ function init() {
     
         //메모 공용
         $(document).on('click',".memos .memohead button", function (event) {
-            let key = event.target.name;
-            let memoArray = getMemoArray();
-            $(this).parent().parent().remove();
+            let memoArray = getMemoArray()
+            let key = $(this).parent().parent().attr("value")
+            $(this).parent().parent().remove()
             if(memoArray) {
                 for(let i=0 ; i<memoArray.length; i++) {
                     if (key == memoArray[i]) {
@@ -347,11 +378,37 @@ function init() {
                 disabled: true})
         })
 
-        $(document).on('mouseover',".momos .memohead",function() {
-            $(evet).fadeto('fast',1)
-        })
-        $(document).on('mouseout',".momos .memohead",function() {
-            $(this).fadeto('slow',0)
+        
+        $(document).on('blur',".memos#text #mtitle", function(evnet){
+            let key = $(this).parent().parent().attr("value")
+            let myid = $(this).parent().parent().attr("id")
+            let mytitle = $(this).val();
+            let xy = $(this).parent().parent().offset();
+            let divX = xy.top;
+            let divY = xy.left;
+            let divH = $(this).parent().parent().height();
+            let divW = $(this).parent().parent().width();
+
+            let mybold = $(this).parent().parent().
+                children().next().children("#mform").css("font-weight")
+            let mysize = parseInt($(this).parent().parent().children()
+                .next().children("#mform").css("font-size"))
+            let myform = $(this).parent().parent().children()
+                .next().children("#mform").val()
+
+            let memoObj = {
+                "kind" : myid,
+                "title" : mytitle,
+                "form" : myform,
+                "x" : divX,
+                "y" : divY,
+                "Nheight" : divH,
+                "NWidth" : divW,
+                "bold" : mybold,
+                "mysize" : mysize
+            }
+            localStorage.setItem(key, JSON.stringify(memoObj))
+
         })
         //메모공용
     
@@ -381,6 +438,7 @@ function init() {
             console.log($(event.target).parent().parent().children().next().children("#mform"))
             console.log(memoSize);
         })
+
         //텍스트 메모
         
         //이미지 사운드 메모
@@ -428,8 +486,11 @@ function init() {
         })
         $('#btnClose').on('click', function () {
             $('#modalWrap').css("display","none");
-          })
+        })
 
+        $('#btnClear').on('click', function () {
+            clearMemos();
+        })
         
         
 }
