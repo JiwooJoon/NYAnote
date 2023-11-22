@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="keyword" content="WebEditor, Editor, memo, HTML, NYA">
+        <meta name="NYAnote" content="동영상, 그림, 음악등 눈에 보이거나 듣는 모든 것을 담을 수 있는 web노트">
+        <meta name="author" content="Joooooon">
+        <meta name="viewport" content="width=device-width, height=device-height, inital-scale=1.0">
+        <link rel="stylesheet" href="css/common.css">
+    </head>
+    <body>
+        <button id="headerbutton"></button>
+        <!-- header-->
+        <header>
+            <div id="headup">
+
+            </div>
+            <div id="title">
+                <textarea></textarea>
+            </div>
+            <div id="logo">
+
+            </div>
+        </header>
+
+        <!--aside-->
+        <button id="sidebutton"></button>
+        <aside>
+            <div id="btnText">
+                <button id="btnAddText">text</button>
+            </div>
+            <div id="btnImage">
+                <input type="file" id="btnAddImage" accept=".png, .jpg, .gif, .webp, .png"
+                value="image">
+            </div>
+            <div id="btnSound">
+                <input type="file" id="btnAddSound" accept=" .wav, .mp3"
+                value="sound">
+            </div>
+            <div id="btnVideo">
+                <input type="file" id="btnAddVideo" accept=" .mp4"
+                value="video">
+            </div>
+            <div id="btnYou">
+                <button id="btnYouTube">youtube</button>
+            </div>
+            <div id="block">
+
+            </div>
+            <div id="btnSave">
+
+            </div>
+            <div id="btnLoad">
+
+            </div>
+            <div id="sideToggle">
+
+            </div>
+
+        </aside>
+
+        <div id="modalWrap">
+                <div id="modalBody">
+                    <p>아 내사랑 모달
+                    </p>
+                    <span id="btnClose">닫아</span>
+                </div>
+        </div>
+        <div id="modalYou">
+            <p>유튜브 링크를 입력하세요</p>
+            <input type="text" id="youLink" placeholder="https://youtu.be/hTphOKyfc9E?si=G0DbElHRbjJK7Myi">
+            <input type="button" id="btnYouOk" value="완료">
+            <input type="button" id="btnYouClose" value="취소">
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  
+        <script src="js/NoteCreate.js"></script>
+    </body>
+</html>

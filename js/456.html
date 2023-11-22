@@ -1,0 +1,25 @@
+<body>
+<style>
+    #divBox {
+        width: 100px;
+        height: 100px;
+        background-color: yellow;
+        border: 5px solid green;
+        margin-top: 20px;
+    }
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js">
+    $(function () {
+        $("#slideUpBtn").on("click", function() {
+            $("#divBox").slideUp(1000);
+        })
+        $("#slideDownBtn").on("click", function() {
+            $("#divBox").slideDown();
+        })
+    })
+</script>
+    <h1>슬라이드 업과 슬라이드 다운</h1>
+    <button id="slideUpBtn">슬라이드 업</button>
+    <button id="slideDownBtn">슬라이드 다운</button>
+    <div id="divBox"></div>
+</body>

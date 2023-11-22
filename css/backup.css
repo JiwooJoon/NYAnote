@@ -1,0 +1,162 @@
+
+/* 박스 구별을 위해 설정함 */
+*{
+    margin: 0;
+    padding: 0;
+    border:nono;
+}
+
+div{
+    border: 2px solid black;
+}
+
+/* 박스 구별을 위해 설정함 */
+
+body {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    background-color: rgb(233, 233, 233);
+}
+
+header {
+    background-color: rgb(161, 161, 161);
+    border: 2px solid red;
+    grid-row: 1 / span 1;
+    grid-column: 1 / span 9;
+    width: 95%;
+    height: 7%;
+
+    display: grid;
+    grid-template-columns: 10% 80% 10%;
+
+    position: fixed;
+}
+
+aside{
+    background-color: rgb(161, 161, 161);
+    border: 2px solid blue;
+    grid-row: 1 / span 9;
+    grid-column: 9 / span 1;
+    width: 80px;
+    height:100%;
+    right:0%;
+    display: grid;
+    grid-template-rows: 10% 10% 10% 10% 30% 10% 10% 10%;
+    position: fixed;
+}
+aside div{
+    text-align: center;
+}
+
+main{
+    border: 2px solid green;
+    grid-row: 2 / span 9;
+    grid-column: 1 / span 8;
+    height: 100%;
+}
+
+input {
+    width:100px;
+    height: 100px;
+}
+
+
+/* 공 설정 */
+.memos {
+    position: absolute;
+    border: 1px solid black;
+}
+
+.memos#text {
+    width: 200px;
+    height: 200px;
+}
+
+.memos textarea{
+    height: 100%;
+    width: 100%;
+    font-size: 15px;
+    resize: none;
+    border : none;
+}
+
+/*동적 span 설정 */
+div.memos{
+    display:grid;
+    grid-template-rows: 1.25rem auto 1.5rem;
+    resize:both;
+    overflow: auto;
+}
+div.memos#image{
+    display:grid;
+    grid-template-rows: 1.25rem auto;
+    resize:both;
+    overflow: auto;
+}
+div.memos#sound{
+    display:grid;
+    grid-template-rows: 1.25rem auto;
+    resize:both;
+    overflow: auto;
+}
+div.memos#video{
+    display:grid;
+    grid-template-rows: 1.25rem auto;
+    height: 300px;
+    width:300px
+    resize:both;
+    overflow: auto;
+}
+.memos::-webkit-scrollbar {
+    width: 10px;
+  }
+.memos::-webkit-scrollbar-thumb {
+    background-color: #2f3542;
+}
+.memos::-webkit-scrollbar-track {
+    background-color: grey;
+}
+
+
+div.memos .memohead{
+    display:grid;
+    grid-template-columns: 90% 10%;
+    border: 1px solid black;
+}
+
+div.memos .memobottom{
+    display:grid;
+    grid-template-columns: 15% 15% 15% 20% 35%; 
+}
+
+input {
+    height: 40px;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: none;
+    width: 78%;
+    color: #999999;
+    align-items: center;
+}
+
+div.memos#image .memobottom{
+
+    display:grid;
+    grid-template-columns: 50% 50%; 
+}
+
+div.memos#image .memomain img {
+    height: 100%;
+    width: 100%;
+}
+
+div.memos#video{
+    height: 300px;
+    width:300px
+}
+
+video {
+    width:100%;
+    height: 100%;
+}
