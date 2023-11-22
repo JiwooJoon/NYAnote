@@ -1,27 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Poor+Story&display=swap');
 
 /* 박스 구별을 위해 설정함 */
 *{
     margin: 0;
     padding: 0;
-    border:nono;
-}
-
-div{
-    border: 2px solid black;
 }
 
 /* 박스 구별을 위해 설정함 */
 
 body {
     background-color: rgb(223, 223, 223);
+    font-size: 'Poor Story', serif;
 }
 
 header {
     background-color: rgb(161, 161, 161);
-    border: 2px solid red;
+    border-bottom: 4px solid gray;
     top:0px;
     width:100%;
-    height:9.5%;
+    height:85px;
     display: grid;
     grid-template-columns: 10% 80% 10%;
     position: fixed;
@@ -29,7 +26,8 @@ header {
 
 aside{
     background-color: rgb(161, 161, 161);
-    border: 2px solid blue;
+    border-left : 4px solid gray;
+    border-top : 5px solid gray;
     right: 0px;
     bottom:0px;
     height:90%;
@@ -56,11 +54,16 @@ input {
 
 header #title textarea {
     background-color: rgb(161, 161, 161);
-    height:100%;
-    width:100%;
+    height:60px;
+    width:90%;
     resize: none;
-    font-size :1rem;
+    border: none;
+    margin-top: 10px;
+    font-size: 40px;
+    border-bottom: #2f3542 solid 5px;
 }
+
+
 
 
 /* 공 설정 */
@@ -108,6 +111,10 @@ div.memos#video{
     width:300px;
     resize:both;
     overflow: auto;
+}
+div.memos#youtube{
+    height: auto;
+    width: auto;
 }
 
 .memos::-webkit-scrollbar {
@@ -159,26 +166,12 @@ div.memos#video{
 }
 
 video {
-    width:100%;
+    width: 100%;
     height: 100%;
 }
 
-@keyframes slide_up_header {
-    0% {
-        height:9.5%;
-    }
-    100%{
-        height:0%
-    }
-}
 
-#headerbutton {
-    top:20px;
-    left:20px;
-    position:fixed;
-    height:50px;
-    width:50px;
-}
+
 
 #sidebutton {
     bottom:25px;
@@ -206,13 +199,29 @@ video {
     padding: 30px 30px;
     border: 1px solid #777;
     background-color: rgb(161, 161, 161);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
 }
 
 #btnClose {
-    float:right;
-    font-weight: bold;
+    grid-row-start: 5;
+    grid-column: 5;
+    margin-top: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
     color: black;
-    font-size: 25px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+#btnClear{
+    grid-row-start: 5;
+    grid-column: 1;
+    margin-top: 20px;
+    font-weight: bold;
+    color: red;
+    font-size: 15px;
     cursor: pointer;
 }
 
@@ -248,6 +257,7 @@ video {
     grid-row-start: 3;
     background-color: rgb(100, 100, 100);
     width: auto;
+    margin-left: 10px;
 }
 #btnYouOk:hover {
     cursor: pointer;
@@ -261,7 +271,182 @@ video {
     grid-row-start: 3;
     background-color: rgb(100, 100, 100);
     width: auto;
+    margin-right: 10px;
 }
 #btnYouClose:hover {
+    cursor: pointer;
+}
+
+
+
+.iframe{
+    position: absolute;
+    width:100%;
+    height: 100%;
+    top: 0%;
+    left: 0%;
+  }
+
+  div.memos#youtube .memobottom{
+    display:grid;
+    grid-template-columns: 50% 50%; 
+}
+
+/*버튼 및 디자인 영역 */
+#headerbutton {
+    top:5px;
+    left:5px;
+    position:fixed;
+    height:90px;
+    width:90px;
+    border:none;
+    background-color: rgb(223, 223, 223);
+}
+#headerbutton img
+{
+    width: 100%;
+    height: 100%;
+    border:none;
+}
+#headerbutton img:hover{
+    cursor: pointer;
+}
+
+header #headup {
+    margin-left:5px;
+    height:85px;
+    width:85px;
+    resize: none;
+}
+#headup img{
+    width: 100%;
+    height: 100%;
+}
+
+#logo{
+    margin-right:0px;
+}
+
+#logo img{
+    position: absolute;
+    margin-left:0px;
+    width: 90px;
+    height: 80px;
+}
+
+#btnText {
+    height:auto;
+    width:auto;
+    resize: none;
+}
+#btnAddText {
+    border: none;
+    background-color: rgb(161, 161, 161);
+}
+#btnText img{
+    height: 100%;
+    width: 100%;
+}
+
+#btnImage {
+    height:auto;
+    width:auto;
+    resize: none;
+}
+#btnImage input{
+    position:absolute;
+    height: 100px;
+    width: 100%;
+    font-size:0px;
+}
+#btnImage img{
+    height: 100%;
+    width: 100%;
+}
+
+input::file-selector-button {
+    display:none;
+}
+
+#btnSound {
+    height:auto;
+    width:auto;
+    resize: none;
+}
+#btnSound input{
+    position:absolute;
+    height: 100px;
+    width: 100px;
+    font-size:0px;
+}
+#btnSound img{
+    height: 100%;
+    width: 100%;
+}
+
+#btnVideo {
+    height:auto;
+    width:auto;
+    resize: none;
+}
+#btnVideo input{
+    position:absolute;
+    height: 80px;
+    width: 80px;
+    font-size:0px;
+}
+#btnVideo img{
+    height: 100%;
+    width: 100%;
+}
+
+#btnYou {
+    height:auto;
+    width:auto;
+    resize: none;
+}
+#btnYouTube {
+    border: none;
+    background-color: rgb(161, 161, 161);
+}
+#btnYou img{
+    height: 100%;
+    width: 100%;
+}
+
+#sideToggle {
+    position:fixed;
+    bottom:10px;
+    right:5px;
+    height:90px;
+    width:90px;
+    border:none;
+    background-color: rgb(223, 223, 223);
+}
+#sideToggle img
+{
+    width: 100%;
+    height: 100%;
+    border:none;
+}
+#sideToggle img:hover{
+    cursor: pointer;
+}
+#sidebutton {
+    position:fixed;
+    bottom:10px;
+    right:5px;
+    height:90px;
+    width:90px;
+    border:none;
+    background-color: rgb(223, 223, 223);
+}
+#sidebutton img
+{
+    width: 100%;
+    height: 100%;
+    border:none;
+}
+#sidebutton img:hover{
     cursor: pointer;
 }
