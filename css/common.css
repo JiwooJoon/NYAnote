@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poor+Story&display=swap');
+@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
 
 /* 박스 구별을 위해 설정함 */
 *{
@@ -11,7 +11,6 @@
 
 body {
     background-color: rgb(223, 223, 223);
-    font-size: 'Poor Story', serif;
 }
 
 header {
@@ -58,6 +57,7 @@ header #title textarea {
     border: none;
     margin-top: 10px;
     font-size: 40px;
+    font-family: 'NanumSquare';
     border-bottom: #2f3542 solid 5px;
 }
 
@@ -79,6 +79,7 @@ header #title textarea {
     height: 100%;
     width: 100%;
     font-size: 15px;
+    font-family: 'NanumSquare';
     resize: none;
     border : none;
 }
@@ -237,6 +238,7 @@ video {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
+    border:3px solid grey;
 }
 #modalYou p {
     grid-column-start: 1;
