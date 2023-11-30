@@ -1,6 +1,3 @@
-window.onload = init;
-
-
 
 function getMemoArray() {
     let memoArray = localStorage.getItem("memoArray")
@@ -31,27 +28,6 @@ function addMemotoDOM(key, memoObj){
     span.setAttribute("id","text")
     span.setAttribute("draggable","flase")
     span.setAttribute("value", key)
-
-    if (memoObj.x > 0){
-        span.innerHTML = `
-        <div class="memohead">
-            <textarea id="mtitle" spellcheck="flase"></textarea>
-            <button></button>
-        </div>
-        <div class=memomain>
-            <textarea id="mform" spellcheck="flase" ></textarea>
-        </div>
-            <div class="memobottom" draggable="false">
-                <button id="memoBold" value="1"></button>
-                <button id="memoBig"></button>
-                <button id="memoSmall"></button>
-            <div class="dragzone">
-        </div>
-            <div class="sizezone" draggable="false">
-            </div>
-        </div>
-    `
-    }
 
     span.innerHTML = `
     <div class="memohead">
@@ -112,10 +88,11 @@ function addMemotoDOMsound(key, memoObj, file){
     span.setAttribute("class", "memos")
     span.setAttribute("id","sound")
     span.setAttribute("draggable","flase")
-    span.setAttribute("value", key)
 
     console.log(file)
     let url_ = URL.createObjectURL(file);
+
+    span.setAttribute("value", url_)
 
 
     span.innerHTML = `
@@ -137,10 +114,11 @@ function addMemotoDOMvideo(key, memoObj, file){
     span.setAttribute("class", "memos")
     span.setAttribute("id","video")
     span.setAttribute("draggable","flase")
-    span.setAttribute("value", key)
 
     console.log(file)
     let url_ = URL.createObjectURL(file);
+
+    span.setAttribute("value", url_)
 
 
     span.innerHTML = `
@@ -164,7 +142,7 @@ function addMemotoDOMyoutube(key, link){
     span.setAttribute("class", "memos")
     span.setAttribute("id","youtube")
     span.setAttribute("draggable","flase")
-    span.setAttribute("value", key)
+    span.setAttribute("value", link)
 
     console.log(link)
     let url_ = link;
@@ -200,8 +178,7 @@ function removeMemoDOM(key) {
     localStorage.removeItem("key")
 }
 
-function init() {
-    let btnText = document.querySelector('#btnAddText')
+let btnText = document.querySelector('#btnAddText')
     let btnImage = document.querySelector('#btnAddImage')
     let btnSound = document.querySelector('#btnAddSound')
     let btnVideo = document.querySelector('#btnAddVideo')
@@ -379,7 +356,7 @@ function init() {
         })
 
         
-        $(document).on('blur',".memos#text #mtitle", function(evnet){
+        $(document).on('blur',".memos", function(evnet){
             let key = $(this).parent().parent().attr("value")
             let myid = $(this).parent().parent().attr("id")
             let mytitle = $(this).val();
@@ -397,17 +374,24 @@ function init() {
                 .next().children("#mform").val()
 
             let memoObj = {
-                "kind" : myid,
-                "title" : mytitle,
-                "form" : myform,
-                "x" : divX,
-                "y" : divY,
-                "Nheight" : divH,
-                "NWidth" : divW,
-                "bold" : mybold,
-                "mysize" : mysize
+                "memotype" : myid,
+                "memotitle" : mytitle,
+                "memovalue" : myform,
+                "memoX" : divX,
+                "memoY" : divY,
+                "memosizeH" : divH,
+                "memosizeW" : divW,
+                "txtBold" : mybold,
+                "txtSize" : mysize
             }
-            localStorage.setItem(key, JSON.stringify(memoObj))
+
+            fetch('/', {
+                method: 'POST',
+                headers: {
+                    'Content-type' : 'application/json'
+                },
+                body: JSON.stringify(memoObj),
+            });
 
         })
         //메모공용
@@ -491,7 +475,16 @@ function init() {
         $('#btnClear').on('click', function () {
             clearMemos();
         })
-        
-        
-}
 
+//창 닫히면 서버로 데이터 전송
+window.addEventListener('beforeunload', function (e) {
+    fetch('/', {
+        method: 'POST',
+        headers: {
+            'Content-type' : 'application/json'
+        },
+        body: JSON.stringify({
+
+        }),
+    });
+  });
